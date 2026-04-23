@@ -65,6 +65,7 @@ B. Adquirir y almacenar la señal generada oara su posterior análisis.
 Para este paso se simulo una señal EMG con una Fs = 1 Hz y un Vpp = 5V, la señal descargada del simulador tiene 20000 muestras que van de 0 a 5 segundos y entre una muestra y la otra tiene 0.00025 segundos.
 
 ´´´phyton
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -91,6 +92,7 @@ plt.ylabel('Voltaje (V)')
 plt.title('Señal EMG adquirida')
 plt.grid(True)
 plt.show()
+
 ´´´
 
 # Referencias 
