@@ -257,6 +257,15 @@ plt.legend()
 plt.show()
 ```
 
+<img width="681" height="461" alt="image" src="https://github.com/user-attachments/assets/b9429600-0852-4938-b6d3-a4586137f1c2" />
+
+La gráfica muestra que la frecuencia media y la frecuencia mediana permanecen practicamente constante a lo largo de las cinco contracciones, esto indica que no hay variaciones significativas en el contenido espectral de la señal, este comportamiento es el esperado ya que se analizo una señal simulada con caracteristicas similares en cada contracción, a diferenciad de las EMG reales, no se observa un desplazamiento hacia frecuencias bajas ya que no se evidencia fatiga muscular.
+
+F. Analizar como varian estas frecuencias a lo largo de las comtracciones simuladas.
+
+Se observa que tanto la frecuencia mediana como la frecuencia media se mantiene en un rango constrante a lo largo de la señal o de las contracciones, con valores aproximados a 17 HZ y 40 Hz respectivamente, no se evidencia una disminución progresiva significatia en frecuencias por lo que no se presenta un comportamiento de fatiga muscular debido a que es simulada, en las señales EMG reales si se suele evidenciar la fatiga como un desplazamiento del espectro hacia baja frecuencias, lo cual no se evidencia para esta parte A
+
+
 
 
 
