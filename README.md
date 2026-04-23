@@ -56,7 +56,42 @@ Electroneurografía o neuroconducción: se colocan pequeños sensores sobre la p
 Electromiografía: se inserta un electrodo en forma de aguja a través de la piel hasta alcanzar el músculo, con el fin de evaluar directamente su actividad. Durante el examen se solicita realizar algunos movimientos mientras el electrodo registra las señales. En esta etapa se percibe un dolor tipo piquete al insertar la aguja y cierta molestia durante el procedimiento, aunque de forma tolerable.
 Este examen es realizado por el médico y suele estar disponible tanto en los hospitales públicos como en las clínicas privadas.
 
+## Parte A - captura de la señal emulada.
 
+A. Configurara el generador de señales biologicas en modo EMG, simulando aproximadamente cinco contraccionesmusculares voluntarias.
+
+B. Adquirir y almacenar la señal generada oara su posterior análisis.
+
+Para este paso se simulo una señal EMG con una Fs = 1 Hz y un Vpp = 5V, la señal descargada del simulador tiene 20000 muestras que van de 0 a 5 segundos y entre una muestra y la otra tiene 0.00025 segundos.
+
+´´´phyton
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#Cargar archivo CSV
+df=pd.read_csv('/content/drive/MyDrive/senal_adquirida 1HZ.csv')
+
+# Ver las primeras filas
+print(df.head())
+
+# Extraer columnas
+tiempo=df['Tiempo(s)']
+voltaje=df['Voltaje(V)']
+
+# Calcular frecuencia de muestreo
+dt=tiempo[1]-tiempo[0]
+fs=1/dt
+print("\nFrecuencia de muestreo:", fs, "Hz")
+
+# Graficar señal completa
+plt.figure(figsize=(12,4))
+plt.plot(tiempo, voltaje)
+plt.xlabel('Tiempo (s)')
+plt.ylabel('Voltaje (V)')
+plt.title('Señal EMG adquirida')
+plt.grid(True)
+plt.show()
+´´´
 
 # Referencias 
 -Tuasaúde. (s.f.). Electromiografía: qué es, para qué sirve y cómo se realiza. Recuperado el 23 de abril de 2026, de https://www.tuasaude.com/es/electromiografia/
