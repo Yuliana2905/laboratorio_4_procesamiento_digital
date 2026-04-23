@@ -41,7 +41,7 @@ Para analizar estas características, se utiliza la Transformada Rápida de Four
 
 El uso de técnicas espectrales en señales EMG tiene aplicaciones importantes en áreas como la rehabilitación, el deporte y la ingeniería biomédica, ya que permite evaluar el estado muscular de forma objetiva, no invasiva y en tiempo real.
 
-#########¿Cómo se realiza?
+######¿Cómo se realiza?
 
 
 <img width="305" height="265" alt="image" src="https://github.com/user-attachments/assets/17bf1caa-9a5b-47a7-8a54-ae878c301524" />
