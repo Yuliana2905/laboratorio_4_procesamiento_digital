@@ -4,36 +4,45 @@
 ## Docente:
 -Carolina Corredor
 ## Integrantes: 
+
 -Liseth Yuliana Clavijo Mesa
+
 -Adriana Valentina Alarcon Ramirez 
 
 # Introduccion :
-#### Electromiografia:
+
+La evaluación de la actividad muscular es fundamental en áreas como la ingeniería biomédica, la rehabilitación y el deporte. Una de las técnicas más utilizadas para este propósito es la electromiografía (EMG), la cual permite registrar la actividad eléctrica generada por los músculos durante la contracción. A través de esta herramienta, es posible analizar el comportamiento muscular en diferentes condiciones fisiológicas, incluyendo la aparición de la fatiga.
+
+La fatiga muscular es un fenómeno que implica la disminución progresiva de la capacidad del músculo para generar fuerza o mantener una contracción sostenida. Este proceso está asociado a cambios fisiológicos y metabólicos que afectan directamente las características de la señal electromiográfica. En particular, el análisis en el dominio de la frecuencia permite identificar variaciones en parámetros como la frecuencia media y la frecuencia mediana, los cuales tienden a disminuir a medida que el músculo se fatiga.
+
+En este contexto, el procesamiento digital de señales juega un papel clave, ya que permite filtrar, segmentar y analizar la información contenida en las señales EMG. El uso de herramientas como la Transformada Rápida de Fourier (FFT) facilita la observación del contenido espectral de la señal y su evolución durante contracciones musculares repetidas.
+
+La presente práctica de laboratorio tiene como finalidad analizar señales electromiográficas, tanto emuladas como reales, con el objetivo de identificar cambios en sus características frecuenciales asociados a la fatiga muscular. Esto permite comprender la utilidad del análisis espectral como herramienta para la evaluación objetiva del estado muscular en diferentes aplicaciones biomédicas.
+
+# Marco teorico 
 
 <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/895c3f22-0065-4484-b5fb-e7bf6f1b40c0" />
 
 
-La electromiografía es un examen que evalúa el funcionamiento de los nervios y los músculos, y se utiliza para diagnosticar, definir tratamientos y hacer seguimiento de la evolución de enfermedades como parálisis facial, síndrome del túnel del carpo, polineuropatías, miopatías y lesiones por hernias de disco o traumas. 
+La electromiografía (EMG) es una técnica utilizada para registrar la actividad eléctrica generada por los músculos durante la contracción. Esta señal es el resultado de la suma de los potenciales de acción de las unidades motoras activas y puede ser medida mediante electrodos de superficie colocados sobre la piel. La EMG de superficie (sEMG) permite evaluar de forma no invasiva el comportamiento muscular en distintas condiciones fisiológicas.
 
-Este examen es capaz de registrar la conducción de un impulso eléctrico en un nervio y evaluar la actividad del músculo durante un determinado movimiento, y suele indicarse en personas que presentan síntomas como hormigueo o entumecimiento o debilidad muscular persistente.
+La señal electromiográfica es de naturaleza aleatoria y no estacionaria, con un contenido frecuencial que generalmente se encuentra entre 20 Hz y 450 Hz. Debido a esto, es necesario aplicar técnicas de procesamiento digital de señales, como el filtrado pasa banda, para eliminar ruido y artefactos, incluyendo interferencias electromagnéticas y componentes de baja frecuencia asociadas al movimiento.
 
-El procedimiento debe ser realizado por un médico especialista en electrodiagnóstico. Durante el examen se colocan sensores sobre la piel y, en algunos casos, se inserta una aguja en el músculo, que registra la actividad muscular y nerviosa mientras se realizan los movimientos indicados por el médico. 
-El examen de electromiografía sirve para evaluar el funcionamiento de los nervios y los músculos, y es útil para el diagnóstico de enfermedades relacionadas con los impulsos nerviosos o con la actividad eléctrica muscular.
+Uno de los fenómenos más relevantes en el análisis de señales EMG es la fatiga muscular, definida como la disminución de la capacidad del músculo para generar fuerza o mantener una contracción sostenida. Desde el punto de vista fisiológico, la fatiga está asociada a factores como la acumulación de metabolitos (como el lactato), la disminución del ATP y cambios en la conducción de las fibras musculares.
 
-Este examen puede indicarse en personas con síntomas como:
+El análisis de la fatiga muscular puede realizarse en el dominio del tiempo o en el dominio de la frecuencia. En este laboratorio, el enfoque principal es el análisis frecuencial, donde se emplean parámetros como:
 
-Hormigueo o entumecimiento;
-Debilidad muscular persistente;
-Dolor muscular, calambres o espasmos involuntarios;
-Parálisis;
-Dolor en las extremidades o afectación de la sensibilidad.
-Este examen puede ser indicado para orientar el tratamiento y realizar el seguimiento de enfermedades que afectan la actividad eléctrica de los nervios y músculos.
+Frecuencia media (Mean Frequency, MNF): promedio ponderado del espectro de frecuencias.
+Frecuencia mediana (Median Frequency, MDF): frecuencia que divide el espectro en dos partes de igual energía.
 
-Con la información obtenida durante el procedimiento, es posible confirmar el diagnóstico, definir las opciones de tratamiento más adecuadas y, en algunos casos, monitorear la gravedad y evolución de la enfermedad.
+Durante la fatiga muscular, se observa un desplazamiento del espectro de frecuencias hacia valores más bajos, lo que implica una disminución tanto de la frecuencia media como de la mediana. Este fenómeno se relaciona con la reducción en la velocidad de conducción de las fibras musculares y cambios en la sincronización de las unidades motoras.
 
-También puede ser solicitado por fisioterapeutas para analizar la calidad del movimiento en personas con alteraciones de patrones de movimiento, lesiones o para determinar el nivel de fatiga muscular.
+Para analizar estas características, se utiliza la Transformada Rápida de Fourier (FFT), una herramienta matemática que permite convertir una señal del dominio del tiempo al dominio de la frecuencia, facilitando la identificación de sus componentes espectrales. Este análisis permite observar cómo evoluciona el contenido frecuencial de la señal a medida que el músculo se fatiga.
+
+El uso de técnicas espectrales en señales EMG tiene aplicaciones importantes en áreas como la rehabilitación, el deporte y la ingeniería biomédica, ya que permite evaluar el estado muscular de forma objetiva, no invasiva y en tiempo real.
 
 #########¿Cómo se realiza?
+
 
 <img width="305" height="265" alt="image" src="https://github.com/user-attachments/assets/17bf1caa-9a5b-47a7-8a54-ae878c301524" />
 
@@ -46,9 +55,6 @@ Electroneurografía o neuroconducción: se colocan pequeños sensores sobre la p
 
 Electromiografía: se inserta un electrodo en forma de aguja a través de la piel hasta alcanzar el músculo, con el fin de evaluar directamente su actividad. Durante el examen se solicita realizar algunos movimientos mientras el electrodo registra las señales. En esta etapa se percibe un dolor tipo piquete al insertar la aguja y cierta molestia durante el procedimiento, aunque de forma tolerable.
 Este examen es realizado por el médico y suele estar disponible tanto en los hospitales públicos como en las clínicas privadas.
-
-
-## Fatiga muscular:
 
 
 
