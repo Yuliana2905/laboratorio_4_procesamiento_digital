@@ -33,7 +33,7 @@ Con la información obtenida durante el procedimiento, es posible confirmar el d
 
 También puede ser solicitado por fisioterapeutas para analizar la calidad del movimiento en personas con alteraciones de patrones de movimiento, lesiones o para determinar el nivel de fatiga muscular.
 
-######### ¿Cómo se realiza?
+#########¿Cómo se realiza?
 
 <img width="305" height="265" alt="image" src="https://github.com/user-attachments/assets/17bf1caa-9a5b-47a7-8a54-ae878c301524" />
 
@@ -42,8 +42,11 @@ También puede ser solicitado por fisioterapeutas para analizar la calidad del m
 La electromiografía se realiza en dos etapas:
 
 Electroneurografía o neuroconducción: se colocan pequeños sensores sobre la piel para evaluar determinados músculos o trayectos de nervios. Luego, se aplican pequeños estímulos eléctricos que generan actividad en esos nervios y músculos, la cual es captada por el equipo. Esta etapa puede causar una sensación similar a ligeros golpecitos, pero resulta tolerable.
+
+
 Electromiografía: se inserta un electrodo en forma de aguja a través de la piel hasta alcanzar el músculo, con el fin de evaluar directamente su actividad. Durante el examen se solicita realizar algunos movimientos mientras el electrodo registra las señales. En esta etapa se percibe un dolor tipo piquete al insertar la aguja y cierta molestia durante el procedimiento, aunque de forma tolerable.
 Este examen es realizado por el médico y suele estar disponible tanto en los hospitales públicos como en las clínicas privadas.
+
 
 ## Fatiga muscular:
 
