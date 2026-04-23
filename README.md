@@ -146,6 +146,116 @@ plt.show()
 <img width="1182" height="402" alt="image" src="https://github.com/user-attachments/assets/df163261-f761-48e2-801b-59c6b451b0cd" />
 <img width="1183" height="188" alt="image" src="https://github.com/user-attachments/assets/713d538e-278e-48e4-90c9-075ffb78d03a" />
 
+D. Calcular para cada contracción calcular la frecuancia media y frecuencia mediana.
+
+Para cada contracción se debe obtener la FFT y luego realizar el calculo aritmetico.
+```python
+import numpy as np
+from scipy.fft import fft, fftfreq
+dt=tiempo.iloc[1]-tiempo.iloc[0]
+fs=1/dt
+contracciones=[c1, c2, c3, c4, c5]
+frecuencia_media=[]
+frecuencia_mediana=[]
+for i, c in enumerate(contracciones):
+    señal=c['Voltaje(V)'].values
+    señal=señal - np.mean(señal)
+    N=len(señal)
+
+    Y=fft(señal)
+    freqs=fftfreq(N, d=1/fs)
+
+    freqs=freqs[:N//2]
+    potencia=np.abs(Y[:N//2])**2
+    freqs=freqs[1:]
+    potencia=potencia[1:]
+    mask=(freqs>=5) & (freqs<=250)
+    freqs=freqs[mask]
+    potencia=potencia[mask]
+
+    f_media=np.sum(freqs * potencia) / np.sum(potencia)
+    potencia_acum=np.cumsum(potencia)
+    mitad=potencia_acum[-1] / 2
+    idx=np.where(potencia_acum >= mitad)[0][0]
+    f_mediana=freqs[idx]
+
+    frecuencia_media.append(f_media)
+    frecuencia_mediana.append(f_mediana)
+
+    print(f'Contracción {i+1}')
+    print(f'Frecuencia media:{f_media:.2f} Hz')
+    print(f'Frecuencia mediana: {f_mediana:.2f} Hz')
+    print(' ')
+
+Contracción 1
+Frecuencia media: 41.16 Hz
+Frecuencia mediana: 17.00 Hz
+---------------------------
+Contracción 2
+Frecuencia media: 41.04 Hz
+Frecuencia mediana: 17.00 Hz
+---------------------------
+Contracción 3
+Frecuencia media: 40.89 Hz
+Frecuencia mediana: 17.00 Hz
+---------------------------
+Contracción 4
+Frecuencia media: 40.90 Hz
+Frecuencia mediana: 17.00 Hz
+---------------------------
+Contracción 5
+Frecuencia media: 40.88 Hz
+Frecuencia mediana: 17.00 Hz
+---------------------------
+```
+
+Para cada uno de las contracciones segmentadas se calculo la frecuencia media y mediana a partir del espectro de potencia obteido mediante la FFT con el fin de caracterizar la distribución de enegíade la señal en el dominio de la frecuancia, la frecuencia media representa el promedio ponderado de las frecuencias presentes, considerando la potencia asociada a cada una, mientras que la mnediana corresponde al valor que divide el espectro en dos partes con igual contenido.
+
+
+En los resultados se obtuvieron frecuencias medias al rededor de los 40 Hz y frecuencias medianas al rededor de 17 Hz, esta diferencia se debe a que 
+la señal presenta mayor concentración de energía en bajas frecuencias, lo que hace que la frecuencia mediana tome valores mas pequeños,mientras que lña frecucnia media se ve mayormente influenciada por componentes de frecuencia mas altas presentes en el espectro.
+
+### Tabla de datos de frecuencias 
+
+
+```python
+import pandas as pd
+
+tabla = pd.DataFrame({
+    'Contracción': [1, 2, 3, 4, 5],
+    'Frecuencia media (Hz)': frecuencia_media,
+    'Frecuencia mediana (Hz)': frecuencia_mediana
+})
+
+print(tabla)
+
+   Contracción  Frecuencia media (Hz)  Frecuencia mediana (Hz)
+0            1              41.158523                     17.0
+1            2              41.042417                     17.0
+2            3              40.885795                     17.0
+3            4              40.896305                     17.0
+4            5              40.881622                     17.0
+```
+
+### Grafica de evolución de frecuencias 
+
+```python
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8,5))
+
+plt.plot(tabla['Contracción'], tabla['Frecuencia media (Hz)'], marker='o', label='Frecuencia media')
+plt.plot(tabla['Contracción'], tabla['Frecuencia mediana (Hz)'], marker='s', label='Frecuencia mediana')
+
+plt.xlabel('Contracción')
+plt.ylabel('Frecuencia (Hz)')
+plt.title('Evolución de frecuencias por contracción')
+
+plt.grid(True)
+plt.legend()
+
+plt.show()
+```
 
 
 
