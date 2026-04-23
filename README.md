@@ -64,7 +64,7 @@ B. Adquirir y almacenar la señal generada oara su posterior análisis.
 
 Para este paso se simulo una señal EMG con una Fs = 1 Hz y un Vpp = 5V, la señal descargada del simulador tiene 20000 muestras que van de 0 a 5 segundos y entre una muestra y la otra tiene 0.00025 segundos.
 
-´´´phyton
+```python
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -93,7 +93,63 @@ plt.title('Señal EMG adquirida')
 plt.grid(True)
 plt.show()
 
-´´´
+   Tiempo(s)  Voltaje(V)
+0    0.00000    1.345282
+1    0.00025    1.346248
+2    0.00050    1.346248
+3    0.00075    1.351079
+4    0.00100    1.335298
+
+```
+<img width="995" height="381" alt="image" src="https://github.com/user-attachments/assets/9b3d2176-e1af-4197-8d95-fcebb63b2fa6" />
+
+C. segmentar la señal obtenida en las cinco contracciones simuladas.
+
+# Segmentación de las 5 contracciones
+
+```python
+c1 = df[(tiempo >= 0) & (tiempo < 1)]
+c2 = df[(tiempo >= 1) & (tiempo < 2)]
+c3 = df[(tiempo >= 2) & (tiempo < 3)]
+c4 = df[(tiempo >= 3) & (tiempo < 4)]
+c5 = df[(tiempo >= 4) & (tiempo < 5)]
+contracciones = [c1, c2, c3, c4, c5]
+
+fig, axs = plt.subplots(5, 1, figsize=(12,10))
+
+axs[0].plot(c1['Tiempo(s)'], c1['Voltaje(V)'])
+axs[0].set_title('Contracción 1')
+axs[0].grid(True)
+
+axs[1].plot(c2['Tiempo(s)'], c2['Voltaje(V)'])
+axs[1].set_title('Contracción 2')
+axs[1].grid(True)
+
+axs[2].plot(c3['Tiempo(s)'], c3['Voltaje(V)'])
+axs[2].set_title('Contracción 3')
+axs[2].grid(True)
+
+axs[3].plot(c4['Tiempo(s)'], c4['Voltaje(V)'])
+axs[3].set_title('Contracción 4')
+axs[3].grid(True)
+
+axs[4].plot(c5['Tiempo(s)'], c5['Voltaje(V)'])
+axs[4].set_title('Contracción 5')
+axs[4].grid(True)
+
+plt.tight_layout()
+plt.show()
+
+```
+
+<img width="1187" height="394" alt="image" src="https://github.com/user-attachments/assets/73c220c4-cb99-45d5-9e67-b3125efceb88" />
+<img width="1182" height="402" alt="image" src="https://github.com/user-attachments/assets/df163261-f761-48e2-801b-59c6b451b0cd" />
+<img width="1183" height="188" alt="image" src="https://github.com/user-attachments/assets/713d538e-278e-48e4-90c9-075ffb78d03a" />
+
+
+
+
+
 
 # Referencias 
 -Tuasaúde. (s.f.). Electromiografía: qué es, para qué sirve y cómo se realiza. Recuperado el 23 de abril de 2026, de https://www.tuasaude.com/es/electromiografia/
