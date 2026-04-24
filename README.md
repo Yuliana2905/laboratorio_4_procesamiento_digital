@@ -602,6 +602,7 @@ Además, el análisis espectral brinda información cuantitativa que puede utili
 
 ## PARTE A
 
+<img width="378" height="1600" alt="image" src="https://github.com/user-attachments/assets/019f3ba9-1c12-4f50-88b0-11ab36f98cac" />
 
 ## PARTE B
 
