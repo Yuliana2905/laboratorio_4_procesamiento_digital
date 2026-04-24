@@ -265,6 +265,162 @@ F. Analizar como varian estas frecuencias a lo largo de las comtracciones simula
 
 Se observa que tanto la frecuencia mediana como la frecuencia media se mantiene en un rango constrante a lo largo de la señal o de las contracciones, con valores aproximados a 17 HZ y 40 Hz respectivamente, no se evidencia una disminución progresiva significatia en frecuencias por lo que no se presenta un comportamiento de fatiga muscular debido a que es simulada, en las señales EMG reales si se suele evidenciar la fatiga como un desplazamiento del espectro hacia baja frecuencias, lo cual no se evidencia para esta parte A
 
+# PARTE B - cAPTURA DE LA SEÑAL DEL PACIENTE.
+
+A. Colocar los electrodos sobre el grupo muscular definido por el grupo (por ejemplo: antebrazo o biceps).
+
+B. Registrar la señal EMG de un paciente o voluntario sano realizando contracciones repetidas hasta la fatiga (o la falla). 
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+data=voltaje.values # Access the numpy array from the pandas Series
+fs=4000
+print(data[:10])
+
+plt.figure()
+plt.plot(data)
+plt.title("Señal EMG cruda")
+plt.xlabel("Muestras")
+plt.ylabel("Amplitud")
+plt.show()
+
+[1.34528207 1.34624824 1.34624824 1.35107911 1.33529827 1.32241594
+ 1.32080565 1.31951742 1.31919536 1.32144977]
+```
+
+<img width="723" height="564" alt="image" src="https://github.com/user-attachments/assets/608df5c5-dd96-4439-bfbd-152596abceb0" />
+
+Se realizo la adquisicion de la señal EMG mediante electrodos de superficie colocados en el antebrazo, el voluntario realizo contracciones repetidas hasta un eatado aproximado a la fatiga muscular, la señal capturada corresponde a la actividad electrica generada por las unidades motoras durante la contracción.
+
+C. Aplicar un filtro pasa banda (20–450 Hz) para eliminar ruido y artefactos. 
+
+```python
+
+from scipy.signal import butter, filtfilt
+lowcut=20
+highcut=450
+b, a=butter(4,[lowcut/(fs/2), highcut/(fs/2)], btype='band')
+filtered=filtfilt(b, a, data)
+plt.figure()
+plt.plot(filtered)
+plt.title("Señal EMG filtrada")
+plt.xlabel("Muestras")
+plt.ylabel("Amplitud")
+plt.show()
+
+```
+<img width="732" height="555" alt="image" src="https://github.com/user-attachments/assets/e57029f9-5031-477c-92f5-a0f64caf4784" />
+
+Se aplico un filtro pasa banda en el rango de 20 a 450 Hz, con el fin de eliminar ruidos y artefactos, este rango es repredentativo de la actividad fisiologica de las señales EMG, permitiendo eliminar componentes de baja frecuencia como movimientos y de alta frecuencia como ruido electrico
+
+D. Dividir la señal en el número de contracciones realizadas.
+
+```python
+
+segments=np.array_split(filtered, 5)
+plt.figure(figsize=(10,6))
+for i, seg in enumerate(segments):
+    plt.plot(seg, label=f'Segmento {i+1}')
+plt.legend()
+plt.title("Segmentos de contracciones")
+plt.show()
+
+```
+<img width="729" height="448" alt="image" src="https://github.com/user-attachments/assets/c0cce770-3d0a-4a26-b265-ace632a7683c" />
+
+La señal EMG presentada en la grafica corresponde a la señal filtrada, este filtrado permite eliminar componentes de ruido, la señal que se obtiene en centrada alrededor de cero que conserva principalmente la actividad elecetrica generada por unidades motoras del músculo, se observan variaciones rápidad y picos de amplitus, típica de señales EMG, reflejando el carácter muscular.
+
+Se muestra en la segmentacion la señal EMG enn intervalos que corresponden a eventos de contracción muscular, este proceso de segmentación implica la identificacion de regiones de interes dentro de la señal continua, cada uno de los segmentos obtenidos representan una contracción individual, cuanod se contrae y con que intensidad lo hace en cada evento, las variaciones en amplitud reflekas diferencias de fuerza o el nivel de actividad eléctrica.
+
+E. Calcular para cada contracción:
+
+-Frecuencia media
+
+
+-Frecuencia mediana
+
+```python
+def compute_fft(signal, fs):
+    N=len(signal)
+    fft_vals=np.fft.fft(signal)
+    freqs=np.fft.fftfreq(N, 1/fs)
+    pos_mask=freqs>0
+    return freqs[pos_mask], np.abs(fft_vals[pos_mask])
+
+def mean_frequency(freqs, spectrum):
+    return np.sum(freqs * spectrum) / np.sum(spectrum)
+
+def median_frequency(freqs, spectrum):
+    cumulative=np.cumsum(spectrum)
+    total=cumulative[-1]
+    return freqs[np.where(cumulative>=total/2)[0][0]]
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+fs=4000
+signal=data
+N=len(signal)
+fft_vals=np.fft.fft(signal)
+freqs=np.fft.fftfreq(N, 1/fs)
+mask=freqs>0
+freqs=freqs[mask]
+fft_vals=np.abs(fft_vals[mask])
+
+plt.figure(figsize=(10,5))
+plt.semilogx(freqs, fft_vals)
+plt.title("FFT de la señal EMG (eje X logarítmico)")
+plt.xlabel("Frecuencia (Hz)")
+plt.ylabel("Magnitud")
+plt.xlim(1, 500)  # empieza en 1 Hz para evitar log(0)
+plt.grid(True, which='both')
+plt.show()
+
+```
+
+Para cada segmento de la señal, se realizo un analisis en el dominio de la frecuencia mediante la FFT a patir del espectro obtenido se calcularon dos parametros, frecuencia media y frecuencia mediana una correspondiente a promedio ponderado de las frecuencias presentes en la señal y la otra correspondiente a la frecuencia que divide el espectro en dos partes con igual contenido energético, estos parámetros permiten caracterizar el comportamiento espectral de la señal EMG y son ampliamente utilizados como indicadores de fatiga muscular.
+
+<img width="726" height="392" alt="image" src="https://github.com/user-attachments/assets/5dcce8fb-6dab-4323-b1b4-1ab7b2b87f0a" />
+
+F. Graficar los resultados obtenidos y analizar la tendencia de la frecuencia media y mediana a medida que progresa la fatiga muscular. 
+
+Se graficó la evolución de la frecuencia media y la frecuencia mediana en función del número de contracciones.
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+if len(mean_freqs)==0 or len(median_freqs)==0:
+    print("Error: las listas están vacías")
+else:
+    n=min(len(mean_freqs), len(median_freqs))
+    mean_freqs=mean_freqs[:n]
+    median_freqs=median_freqs[:n]
+    contracciones=np.arange(1, n + 1)
+    plt.figure()
+    plt.plot(contracciones, mean_freqs, marker='o', label='Frecuencia Media')
+    plt.plot(contracciones, median_freqs, marker='s', label='Frecuencia Mediana')
+
+    plt.title("Evolución de la fatiga muscular")
+    plt.xlabel("Contracciones")
+    plt.ylabel("Frecuencia (Hz)")
+    plt.grid()
+    plt.legend()
+    plt.show()
+```
+<img width="721" height="557" alt="image" src="https://github.com/user-attachments/assets/5debddff-79aa-4290-9cb2-37c347131622" />
+
+En la gráfica no se observa un desplazamiento del contenido espectra hacia bajas frecuencias debido a que no se logro llegar por completo a la fatiga muscular.
+
+
+G. Discutir la relación entre los cambios de frecuencia y la fisiología de la fatiga
+muscular. 
+
+Al analizar la evolucion de la frecuencia media y la frecuencia mediana de la función del numero de ocntracciones, no se observa una tendencia decrecuente significativa en los valores obtenidos, ambos parametros see mantienen estables a lo largo de las contracciones evalucadass, sin evidenciar desplazamiento hacia frecuencias bjas que caracterizan el estado de fatiga muscular.
+
+Este comportamiendo sugiere que el músculo no alcanzó un nivel de fatiga suficiente durante el tiempo de adquisicion de la señal, en condiciones normales la fatiga se deberia presentar como una disminución progresiva de frecuencias debido a cambios fisiológicos como la reducción de velocidad de conducción en las fibras musculares.
+
+
 # Parte C
 ## Análisis espectral mediante FFT 
 a. Aplicar la Transformada Rápida de Fourier (FFT) a cada contracción de la señal EMG real. 
@@ -419,6 +575,17 @@ Los resultados obtenidos muestran que la mayor concentración de energía se enc
 En cuanto al análisis de fatiga muscular, no se evidenció una disminución progresiva del contenido de altas frecuencias ni un desplazamiento significativo hacia frecuencias más bajas. Esto sugiere que, bajo las condiciones del experimento, no se presentó un nivel considerable de fatiga muscular, o que los cambios fueron mínimos y no detectables mediante el análisis realizado.
 
 En general, el análisis espectral constituye una herramienta útil para el estudio de señales electromiográficas, ya que permite evaluar de manera cuantitativa y visual las características frecuenciales de la actividad muscular. Sin embargo, su efectividad depende de factores como la adecuada segmentación de las contracciones, la calidad de la señal adquirida y las condiciones fisiológicas del sujeto durante el experimento.
+
+## Preguntas para la discusión.
+
+¿Cambian los valores de frecuencia media y mediana a medida que el músculo se acerca a la fatiga? ¿A qué podría atribuirse este cambio?
+
+En condiciones teoricas valores de frecuencua media y mediana de una señal EMG tiene a disminuir progresivamente a mesdica que el musculo se acerca a un estado de fatiga, este comportamiento se debe a un desplazamiento del contenido espectral hacia bajas frecuencias.
+
+Este cambio se atribuye a factores fisiologicos como dismunicion de la velocidad de conducción en las fibras musculares, la acumulacion de metabplitos como lactato ya reducción de disponibilidad de ATP ademas durante la fatiga se ptroducen modificacione en el reclutamiento de unidades motoras, favoreciendo la actividad de fibras más lenta y por lo tanto disminucion del contenido de altas frecuencias.
+
+En la señal analizada no se observa una diminución progresiva en valores de frecuencias a lo largo de las contracciones estos paramentos se mantiene estables y en aumento lo que indica que el musculo no alcanzo la fatiga suficiente durante la adquisición.
+
 
 
 
