@@ -602,7 +602,8 @@ Además, el análisis espectral brinda información cuantitativa que puede utili
 
 ## PARTE C
 
-<img width="218" height="811" alt="image" src="https://github.com/user-attachments/assets/f147e07c-b52e-4c36-a07e-0e8405334f60" />
+<img width="172" height="816" alt="image" src="https://github.com/user-attachments/assets/10608167-b5c9-4631-9dc2-76e41170acf2" />
+
 
 
 
