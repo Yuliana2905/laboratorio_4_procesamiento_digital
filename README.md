@@ -592,6 +592,20 @@ La Transformada de Fourier permite estudiar la señal EMG en el dominio de la fr
 
 Además, el análisis espectral brinda información cuantitativa que puede utilizarse para hacer seguimiento del progreso del paciente a lo largo del tiempo. Con estos datos, es posible ajustar la intensidad o tipo de terapia de manera más precisa. En este sentido, el uso de esta herramienta complementa la evaluación clínica y ayuda a mejorar la toma de decisiones durante el proceso de recuperación.
 
+
+
+# Diagramas de flujo
+
+## PARTE A
+## PARTE B
+
+
+## PARTE C
+
+<img width="218" height="811" alt="image" src="https://github.com/user-attachments/assets/f147e07c-b52e-4c36-a07e-0e8405334f60" />
+
+
+
 # Referencias 
 -Tuasaúde. (s.f.). Electromiografía: qué es, para qué sirve y cómo se realiza. Recuperado el 23 de abril de 2026, de https://www.tuasaude.com/es/electromiografia/
 
