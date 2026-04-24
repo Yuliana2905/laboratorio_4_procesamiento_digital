@@ -566,6 +566,10 @@ plt.show()
 <img width="512" height="380" alt="image" src="https://github.com/user-attachments/assets/3abfeb19-cef1-47b2-a5b4-6b1ef7f5f863" />
 
 
+La gráfica de desplazamiento del pico espectral muestra cómo cambia la frecuencia dominante de la señal EMG en cada contracción. En este caso, se ve que todos los puntos están prácticamente en el mismo valor, alrededor de 28 Hz, por eso la gráfica sale casi completamente plana. Esto significa que la frecuencia donde hay mayor energía en la señal no cambia entre una contracción y otra.
+
+Esto puede interpretarse como que el músculo se mantuvo trabajando de forma muy similar durante toda la prueba, sin presentar cambios notorios como los que ocurren cuando hay fatiga, donde normalmente la frecuencia tiende a disminuir. También puede pasar que el análisis no sea tan sensible a cambios pequeños, ya sea por la resolución de la FFT o porque solo se está tomando el valor máximo del espectro, lo que hace que siempre se seleccione prácticamente la misma frecuencia.
+
 f. Redactar conclusiones sobre el uso del análisis espectral como herramienta diagnóstica en electromiografía.
 
 -El análisis espectral mediante la Transformada Rápida de Fourier (FFT) permitió evaluar el contenido frecuencial de la señal electromiográfica y caracterizar el comportamiento de la actividad muscular durante las contracciones analizadas. A partir de este enfoque, fue posible identificar la distribución de energía en diferentes rangos de frecuencia, así como la frecuencia dominante de la señal.
