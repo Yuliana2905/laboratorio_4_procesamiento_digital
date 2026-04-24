@@ -586,8 +586,11 @@ Este cambio se atribuye a factores fisiologicos como dismunicion de la velocidad
 
 En la señal analizada no se observa una diminución progresiva en valores de frecuencias a lo largo de las contracciones estos paramentos se mantiene estables y en aumento lo que indica que el musculo no alcanzo la fatiga suficiente durante la adquisición.
 
+¿Cómo justifica el uso de herramientas como la transformada de Fourier en escenarios como, por ejemplo, terapias de rehabilitación?
 
+La Transformada de Fourier permite estudiar la señal EMG en el dominio de la frecuencia, lo que facilita identificar características que no se observan fácilmente en el tiempo, como la distribución de energía y la presencia de fatiga muscular. En procesos de rehabilitación, esto resulta útil porque permite evaluar cómo está respondiendo el músculo durante los ejercicios y detectar cambios en su funcionamiento.
 
+Además, el análisis espectral brinda información cuantitativa que puede utilizarse para hacer seguimiento del progreso del paciente a lo largo del tiempo. Con estos datos, es posible ajustar la intensidad o tipo de terapia de manera más precisa. En este sentido, el uso de esta herramienta complementa la evaluación clínica y ayuda a mejorar la toma de decisiones durante el proceso de recuperación.
 
 # Referencias 
 -Tuasaúde. (s.f.). Electromiografía: qué es, para qué sirve y cómo se realiza. Recuperado el 23 de abril de 2026, de https://www.tuasaude.com/es/electromiografia/
