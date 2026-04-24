@@ -407,10 +407,18 @@ plt.show()
 
 ```
 
+<img width="512" height="380" alt="image" src="https://github.com/user-attachments/assets/3abfeb19-cef1-47b2-a5b4-6b1ef7f5f863" />
 
 
 f. Redactar conclusiones sobre el uso del análisis espectral como herramienta diagnóstica en electromiografía.
 
+-El análisis espectral mediante la Transformada Rápida de Fourier (FFT) permitió evaluar el contenido frecuencial de la señal electromiográfica y caracterizar el comportamiento de la actividad muscular durante las contracciones analizadas. A partir de este enfoque, fue posible identificar la distribución de energía en diferentes rangos de frecuencia, así como la frecuencia dominante de la señal.
+
+Los resultados obtenidos muestran que la mayor concentración de energía se encuentra en el rango de frecuencias bajas y medias, lo cual es consistente con el comportamiento típico de señales EMG. Asimismo, se observó que tanto la forma de los espectros como la posición del pico espectral se mantienen relativamente constantes entre las distintas contracciones.
+
+En cuanto al análisis de fatiga muscular, no se evidenció una disminución progresiva del contenido de altas frecuencias ni un desplazamiento significativo hacia frecuencias más bajas. Esto sugiere que, bajo las condiciones del experimento, no se presentó un nivel considerable de fatiga muscular, o que los cambios fueron mínimos y no detectables mediante el análisis realizado.
+
+En general, el análisis espectral constituye una herramienta útil para el estudio de señales electromiográficas, ya que permite evaluar de manera cuantitativa y visual las características frecuenciales de la actividad muscular. Sin embargo, su efectividad depende de factores como la adecuada segmentación de las contracciones, la calidad de la señal adquirida y las condiciones fisiológicas del sujeto durante el experimento.
 
 
 
