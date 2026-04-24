@@ -597,7 +597,11 @@ Además, el análisis espectral brinda información cuantitativa que puede utili
 # Diagramas de flujo
 
 ## PARTE A
+
+
 ## PARTE B
+
+<img width="174" height="803" alt="image" src="https://github.com/user-attachments/assets/6fa8c0ee-11f7-436f-83d2-e1767fa0ae2d" />
 
 
 ## PARTE C
