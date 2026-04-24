@@ -265,7 +265,151 @@ F. Analizar como varian estas frecuencias a lo largo de las comtracciones simula
 
 Se observa que tanto la frecuencia mediana como la frecuencia media se mantiene en un rango constrante a lo largo de la señal o de las contracciones, con valores aproximados a 17 HZ y 40 Hz respectivamente, no se evidencia una disminución progresiva significatia en frecuencias por lo que no se presenta un comportamiento de fatiga muscular debido a que es simulada, en las señales EMG reales si se suele evidenciar la fatiga como un desplazamiento del espectro hacia baja frecuencias, lo cual no se evidencia para esta parte A
 
+# Parte C
+## Análisis espectral mediante FFT 
+a. Aplicar la Transformada Rápida de Fourier (FFT) a cada contracción de la señal EMG real. 
 
+
+```python
+
+fft_resultados = []
+
+for i, seg in enumerate(segments):
+    freqs, spectrum = compute_fft(seg, fs)
+
+    fft_resultados.append((freqs, spectrum))
+
+    print(f'FFT aplicada a Contracción {i+1} (N = {len(seg)})')
+```
+
+Se aplicó la Transformada Rápida de Fourier (FFT) a cada una de las contracciones obtenidas de la señal electromiográfica (EMG), con el fin de transformar la señal del dominio del tiempo al dominio de la frecuencia. Este procedimiento permitió identificar las componentes frecuenciales presentes en la señal y analizar la distribución de energía en función de la frecuencia.
+Para cada segmento correspondiente a una contracción, se calculó su espectro de frecuencia, obteniendo como resultado el conjunto de frecuencias y su respectiva magnitud o potencia asociada.
+
+b. Graficar el espectro de amplitud (frecuencia vs. magnitud) para observar cómo cambia el contenido de frecuencia. 
+En las gráficas obtenidas se representa el espectro de potencia de cada contracción de la señal EMG en función de la frecuencia. El eje horizontal corresponde a la frecuencia en Hz (en escala semilogarítmica), mientras que el eje vertical representa la potencia asociada a cada componente frecuencial.
+
+```python
+plt.figure(figsize=(12,8))
+
+for i, seg in enumerate(segments):
+    freqs, spectrum = compute_fft(seg, fs)
+
+    power = spectrum**2  # usar potencia
+
+    plt.subplot(5,1,i+1)
+    plt.semilogx(freqs, power)
+    plt.title(f'Contracción {i+1}')
+    plt.ylabel('Potencia')
+    plt.xlim(1, 500)
+    plt.grid(True, which='both')
+
+plt.xlabel('Frecuencia (Hz)')
+plt.tight_layout()
+plt.show()
+
+```
+
+<img width="1035" height="654" alt="image" src="https://github.com/user-attachments/assets/e1eaa79f-cfbe-4c30-9404-e9746e770145" />
+
+
+
+A partir de las gráficas se observa que, en todas las contracciones, la mayor concentración de energía se encuentra en un rango aproximado entre 20 y 100 Hz. Este comportamiento es característico de señales electromiográficas, ya que la actividad eléctrica muscular suele concentrarse en frecuencias bajas y medias. Además, en cada espectro se identifica un pico principal, el cual corresponde a la frecuencia dominante de la señal, es decir, donde se concentra la mayor potencia.
+
+También se aprecia que a medida que aumenta la frecuencia, la potencia disminuye progresivamente, lo cual indica que las componentes de alta frecuencia tienen menor contribución en la señal.
+
+Un aspecto importante es que los espectros de todas las contracciones presentan formas muy similares entre sí. Esto significa que la distribución de energía en frecuencia se mantiene prácticamente constante a lo largo de las diferentes contracciones. Esta similitud puede explicarse por dos razones principales: en primer lugar, la segmentación de la señal se realizó dividiéndola en partes iguales, lo cual no garantiza que cada segmento corresponda exactamente a una contracción independiente; y en segundo lugar, es posible que no exista un nivel significativo de fatiga muscular, ya que en presencia de fatiga se esperaría un desplazamiento del contenido espectral hacia frecuencias más bajas y una reducción en las componentes de alta frecuencia.
+
+En consecuencia, las gráficas indican que la señal EMG analizada mantiene un comportamiento espectral estable, sin cambios notorios en la distribución de frecuencias entre las distintas contracciones. Esto sugiere que la actividad muscular registrada no presenta variaciones significativas en términos de fatiga durante el periodo de análisis.
+
+
+c. Comparar los espectros de las primeras contracciones con los de las últimas. 
+
+```python
+freqs1, spec1 = compute_fft(segments[0], fs)
+freqs5, spec5 = compute_fft(segments[-1], fs)
+
+plt.figure()
+plt.semilogx(freqs1, spec1**2, label='Inicio')
+plt.semilogx(freqs5, spec5**2, label='Final')
+
+plt.title('Inicio vs Final (Fatiga)')
+plt.xlabel('Frecuencia (Hz)')
+plt.ylabel('Potencia')
+plt.xlim(1, 500)
+plt.legend()
+plt.grid(True, which='both')
+plt.show()
+
+```
+<img width="516" height="370" alt="image" src="https://github.com/user-attachments/assets/15aabac4-e9ee-4c45-8936-1322431a4953" />
+
+Para evaluar posibles cambios en el contenido frecuencial de la señal EMG, se realizó una comparación entre el espectro correspondiente a la primera contracción (inicio) y el de la última contracción (final), como se muestra en la figura.
+
+En la gráfica se observa que ambos espectros presentan una distribución de potencia muy similar, con la mayor concentración de energía en el rango de frecuencias bajas y medias (aproximadamente entre 20 y 100 Hz). El pico espectral principal aparece en una frecuencia cercana en ambas señales, lo que indica que la frecuencia dominante del músculo se mantiene prácticamente constante entre el inicio y el final del registro.
+
+Sin embargo, se aprecian pequeñas variaciones en la amplitud de algunas componentes, especialmente en el rango de frecuencias medias y altas, donde el espectro final presenta ligeras diferencias respecto al inicial. Estas variaciones pueden estar asociadas a cambios en la activación muscular o a ruido en la señal.
+
+En general, la alta similitud entre ambos espectros sugiere que no se produjo un cambio significativo en el contenido frecuencial de la señal a lo largo del tiempo. En condiciones de fatiga muscular, se esperaría observar una disminución de las componentes de alta frecuencia y un desplazamiento del espectro hacia frecuencias más bajas; sin embargo, este comportamiento no es claramente evidente en la gráfica obtenida.
+
+d. Identificar la reducción del contenido de alta frecuencia asociada con la fatiga muscular.  
+
+```python
+high_energy = []
+
+for seg in segments:
+    freqs, spectrum = compute_fft(seg, fs)
+    power = spectrum**2
+
+    mask = freqs > 100  # altas frecuencias
+    energy = np.sum(power[mask])
+
+    high_energy.append(energy)
+
+plt.figure()
+plt.plot(range(1,6), high_energy, marker='o')
+plt.title('Energía en altas frecuencias')
+plt.xlabel('Contracción')
+plt.ylabel('Energía')
+plt.grid()
+plt.show()
+
+```
+
+<img width="541" height="384" alt="image" src="https://github.com/user-attachments/assets/5be97c80-1500-47c2-8ad0-676089572621" />
+
+
+Con el fin de analizar la presencia de fatiga muscular, se evaluó la energía contenida en las altas frecuencias de la señal EMG para cada una de las contracciones, como se muestra en la figura.
+
+En la gráfica se observa que la energía en altas frecuencias no presenta una disminución progresiva a lo largo de las contracciones. Inicialmente, se evidencia una leve reducción desde la primera hasta la tercera contracción; sin embargo, posteriormente la energía aumenta nuevamente en las contracciones cuarta y quinta.
+
+Este comportamiento no corresponde al patrón típico de fatiga muscular, en el cual se espera una disminución sostenida del contenido de altas frecuencias debido a cambios fisiológicos en la conducción de las fibras musculares. En condiciones de fatiga, la señal EMG tiende a concentrar su energía en frecuencias más bajas, reduciendo progresivamente las componentes de alta frecuencia.
+
+La ausencia de una tendencia decreciente clara en la gráfica sugiere que no se presentó un nivel significativo de fatiga muscular durante el experimento. Asimismo, las variaciones observadas pueden estar influenciadas por factores como la segmentación de la señal, el ruido o pequeñas diferencias en la activación muscular entre contracciones.
+
+e. Calcular y discutir el desplazamiento del pico espectral y su relación con el esfuerzo sostenido. 
+
+```python
+
+for seg in segments:
+    freqs, spectrum = compute_fft(seg, fs)
+    power = spectrum**2
+
+    peak = freqs[np.argmax(power)]
+    peak_freqs.append(peak)
+
+plt.figure()
+plt.plot(range(1,6), peak_freqs, marker='s')
+plt.title('Desplazamiento del pico espectral')
+plt.xlabel('Contracción')
+plt.ylabel('Frecuencia (Hz)')
+plt.grid()
+plt.show()
+
+```
+
+
+
+f. Redactar conclusiones sobre el uso del análisis espectral como herramienta diagnóstica en electromiografía.
 
 
 
